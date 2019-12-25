@@ -1,5 +1,7 @@
 * PictureTape
 
+[[https://media.giphy.com/media/LQzb2R1DOwF1RVCgiu/giphy.gif]]
+
 ** Disclaimer
 Use at your own risk.
 
@@ -23,6 +25,7 @@ target library folder.
 - Offer r-syncing;
 - Use EXIF data when available, fallback creation date;
 - Better help banner;
+- Remove the nauseating indirection of code.
 - Test suite.
 
 ** Example usage
