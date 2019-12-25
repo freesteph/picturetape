@@ -24,10 +24,13 @@ module PictureTape
     def process!(path)
       @path = path
 
-      handle_dir if directory?
-      handle_file if scrappable?
-
-      puts "skipping as #{File.basename(path)} is not scrappable"
+      if directory?
+        handle_dir
+      elsif scrappable?
+        handle_file
+      else
+        puts "skipping as #{File.basename(path)} is not scrappable"
+      end
     end
 
     private

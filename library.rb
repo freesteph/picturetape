@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require './scrapper.rb'
+
 module PictureTape
   class Library
     attr_reader :path
