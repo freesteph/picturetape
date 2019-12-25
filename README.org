@@ -1,0 +1,33 @@
+* PictureTape
+
+** Disclaimer
+Use at your own risk.
+
+** Reasoning
+The author of this software has thousands of photos scattered across a
+dizzying array of devices, and lousy programs keep forgetting where
+the One True Library is supposed to live, and what to do with
+duplicates, etc. This script is an attempt at writing a
+media-synchroniser that does its job well and can be easily setup.
+
+** How it works
+_At the moment_, the script recursively traverses a directory and
+finds image files in it. It then runs ImageMagick's ~identify~ against
+it to guess the creation date and then symbolically links it into a
+target library folder.
+
+** Roadmap
+
+- Offer linking or hard-copying;
+- Handle duplicates;
+- Offer r-syncing;
+- Use EXIF data when available, fallback creation date;
+- Better help banner;
+- Test suite.
+
+** Example usage
+The interface looks like this:
+
+#+BEGIN_SRC bash
+ruby main.rb -l /PATH/TO/LIBRARY /PATH/TO/MEDIA
+#+END_SRC
