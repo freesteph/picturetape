@@ -20,10 +20,10 @@ target library folder.
 
 ** Roadmap
 
-- Offer linking or hard-copying;
+- Offer linking and consolidation-hard-copying;
 - Handle duplicates;
 - Offer r-syncing;
-- Use EXIF data when available, fallback creation date;
+- +Use EXIF data when available, fallback creation date+;
 - Better help banner;
 - Remove the nauseating indirection of code.
 - Test suite.
