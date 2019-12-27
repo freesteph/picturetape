@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'date'
-require './logger.rb'
+require './lib/logger.rb'
 
 module PictureTape
   # this class tries and identify the date/time a picture was taken

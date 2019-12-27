@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require './chronolog.rb'
+require './lib/chronolog.rb'
 
 module PictureTape
   class Scrapper

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require './scrapper.rb'
+require './lib/scrapper.rb'
 
 module PictureTape
   class Library

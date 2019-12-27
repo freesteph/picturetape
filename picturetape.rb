@@ -2,7 +2,7 @@
 
 require 'optparse'
 
-require './library.rb'
+require './lib/library.rb'
 
 options = {}
 
