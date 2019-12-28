@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require 'fileutils'
 
 require './lib/chronolog.rb'
 require './lib/logger.rb'
@@ -61,21 +62,21 @@ module PictureTape
         date.day.to_s
       )
 
-      `mkdir -p #{dest}`
-
       move_asset(path, dest)
     end
 
     def move_asset(path, dest)
-      if File.exist? dest
+      if File.exist? File.join(dest, File.basename(path))
         PictureTape::Logger.log "Target link already exists, skipping."
       else
+        FileUtils.mkdir_p(dest)
+
         @do_copy ? copy_file(path, dest) : link_file(path, dest)
       end
     end
 
     def copy_file(src, dest)
-      `cp #{src} #{dest}/#{File.basename(path)}`
+      `cp #{src} #{dest}`
     end
 
     def link_file(src, dest)
