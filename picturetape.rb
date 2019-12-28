@@ -1,20 +1,12 @@
+#!/bin/ruby
+
 # frozen_string_literal: true
 
 require 'optparse'
 
-require './lib/library.rb'
+require './lib/scrapper.rb'
+require './lib/cli.rb'
 
-options = {}
+params = PictureTape::CLI.new(ARGV.shift).run!
 
-OptionParser.new do |opts|
-  opts.banner = 'Usage: ruby picturetape.rb FOLDER'
-
-  opts.on(
-    '-l=LIBRARY',
-    '--library=LIBRARY',
-    'Library where the pictures are copied to (default: ENV["PICTURETAPE_LIB"]'
-  )
-end.parse!
-
-library = PictureTape::Library.new(options[:library] || ENV['PICTURETAPE_LIB'])
-library.scrape!(ARGV.shift)
+PictureTape::Scrapper.new(params).scrape!

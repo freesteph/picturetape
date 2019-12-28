@@ -1,16 +1,20 @@
 # frozen_string_literal: true
 
 require './lib/chronolog.rb'
+require './lib/logger.rb'
 
 module PictureTape
   class Scrapper
     EXTENSIONS = %w[jpg png jpeg tiff bmp].freeze
 
-    attr_reader :lib
-    attr_reader :path
+    attr_reader :options
 
-    def initialize(lib)
-      @lib = lib
+    def initialize(options)
+      @params = options
+    end
+
+    def path
+      @params[:path]
     end
 
     def scrappable?
@@ -21,9 +25,7 @@ module PictureTape
       Dir.exist? path
     end
 
-    def process!(path)
-      @path = path
-
+    def scrape!
       if directory?
         handle_dir
       elsif scrappable?
@@ -45,7 +47,7 @@ module PictureTape
       files = Dir.glob(File.join(path, '*'))
 
       files.each do |f|
-        Scrapper.new(lib).process!(f)
+        Scrapper.new(@params.merge(path: f))
       end
     end
 
@@ -53,7 +55,17 @@ module PictureTape
       dest = File.join(lib, date.year.to_s, date.month.to_s, date.day.to_s)
 
       `mkdir -p #{dest}`
-      `ln -s #{path} #{dest}/#{File.basename(path)}`
+
+      @do_copy ? copy_file(path, dest) : link_file(path, dest)
     end
+
+    def copy_file(src, dest)
+      `cp #{src} #{dest}/#{File.basename(path)}`
+    end
+
+    def link_file(src, dest)
+      `ln -s #{src} #{dest}/#{File.basename(path)}`
+    end
+
   end
 end
