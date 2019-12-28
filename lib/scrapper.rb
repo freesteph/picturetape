@@ -26,12 +26,14 @@ module PictureTape
     end
 
     def scrape!
+      PictureTape::Logger.log "looking at #{path}..."
+
       if directory?
         handle_dir
       elsif scrappable?
         handle_file
       else
-        puts "skipping as #{File.basename(path)} is not scrappable"
+        PictureTape::Logger.log "skipping as #{File.basename(path)} is not scrappable"
       end
     end
 
@@ -47,12 +49,17 @@ module PictureTape
       files = Dir.glob(File.join(path, '*'))
 
       files.each do |f|
-        Scrapper.new(@params.merge(path: f))
+        Scrapper.new(@params.merge(path: f)).scrape!
       end
     end
 
     def link_asset(date)
-      dest = File.join(lib, date.year.to_s, date.month.to_s, date.day.to_s)
+      dest = File.join(
+        @params[:library],
+        date.year.to_s,
+        date.month.to_s,
+        date.day.to_s
+      )
 
       `mkdir -p #{dest}`
 
