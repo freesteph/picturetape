@@ -63,7 +63,15 @@ module PictureTape
 
       `mkdir -p #{dest}`
 
-      @do_copy ? copy_file(path, dest) : link_file(path, dest)
+      move_asset(path, dest)
+    end
+
+    def move_asset(path, dest)
+      if File.exist? dest
+        PictureTape::Logger.log "Target link already exists, skipping."
+      else
+        @do_copy ? copy_file(path, dest) : link_file(path, dest)
+      end
     end
 
     def copy_file(src, dest)
